@@ -5,8 +5,17 @@
 #include "malloc.h"
 #include "memreq.h"
 
+
+
+typedef struct header {
+    size_t size;
+
+}
+
 void *malloc(size_t size) {
-    return NULL;
+    struct header* ptr = (struct header*) get_memry(size + sizeof(struct header));
+    ptr->size = size;
+    return (void*) (ptr + 1);
 }
 
 static size_t highest(size_t in) {
