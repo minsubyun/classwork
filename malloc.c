@@ -7,20 +7,30 @@
 
 
 
-typedef struct header {
+struct header {
     size_t size;
+    header* next;
+    int freed;
+} header;
 
-}
+struct header* tail;
+
 
 void *malloc(size_t size) {
-    struct header* ptr = (struct header*) get_memry(size + sizeof(struct header));
+    if (size == 0) {
+        return (void*) 0;
+    }
+    struct header* ptr = (struct header*) get_memory(size + sizeof(struct header));
     ptr->size = size;
+    ptr->freed = 0;
+    if (tail == NULL) {
+
+    }
     return (void*) (ptr + 1);
 }
 
 static size_t highest(size_t in) {
     size_t num_bits = 0;
-
     while (in != 0) {
         ++num_bits;
         in >>= 1;
@@ -69,4 +79,5 @@ void* realloc(void *ptr, size_t size) {
 }
 
 void free(void* ptr) {
+    
 }
